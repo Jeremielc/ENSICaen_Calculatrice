@@ -10,16 +10,32 @@ package com.ensicaen.calculatrice.utils;
  * @author lesurfer
  */
 public class Operations {
-    public void Addittion(){
-        
+    public double Addittion(double... nb){
+        double sum = 0;
+        for (Double d : nb) {
+            sum += d;
+        }
+        return sum;
     }
-    public void Substract(){
-        
+    public double Substract(double... nb){
+        double sum = 0;
+        for (Double d : nb) {
+            sum -= d;
+        }
+        return sum;
     }
-    public void Multiply(){
-        
+    public double Multiply(double... nb){
+        double sum = 0;
+        for (Double d : nb) {
+            sum *= d;
+        }
+        return sum;
     }
-    public void Divide(){
-        
+    public double Divide(double... nb){
+        double sum = 0;
+        for (Double d : nb) {
+            sum /= d;
+        }
+        return sum;
     }
 }
