@@ -10,29 +10,46 @@ package com.ensicaen.calculatrice.utils;
  * @author lesurfer
  */
 public class Operations {
+    
+    private double sum;
+    
+    public double getSum(){
+        return sum;
+    }
     public double Addittion(double... nb){
-        double sum = 0;
+        sum = 0;
         for (Double d : nb) {
             sum += d;
         }
         return sum;
     }
-    public double Substract(double... nb){
-        double sum = 0;
+    /*public double Substract(double... nb){
+        sum = 0;
         for (Double d : nb) {
-            sum -= d;
+            if( d < sum){
+                sum -= d;
+            }else{
+                sum = d - sum;
+            }
+        }
+        return sum;
+    }*/
+    public double Substract(double... nb){
+        sum = 0;
+        for (Double d : nb) {
+                sum -= d;
         }
         return sum;
     }
     public double Multiply(double... nb){
-        double sum = 0;
+        sum = 1;
         for (Double d : nb) {
             sum *= d;
         }
         return sum;
     }
     public double Divide(double... nb){
-        double sum = 0;
+        sum = 1;
         for (Double d : nb) {
             sum /= d;
         }
