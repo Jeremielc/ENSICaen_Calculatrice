@@ -5,10 +5,12 @@
  */
 package com.ensicaen.calculatrice.main;
 
+import com.ensicaen.calculatrice.fxml.RootLayoutController;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -28,9 +30,13 @@ public class MainApp extends Application {
 
             Scene scene = new Scene(rootLayout);
 
+            RootLayoutController rlc = loader.getController();
+            rlc.setOwner(primaryStage);
+            
             primaryStage.setResizable(false);
             primaryStage.setTitle("Calculatrice");
             primaryStage.setScene(scene);
+            primaryStage.getIcons().add(new Image("/com/ensicaen/calculatrice/images/icon.png"));
             primaryStage.show();
         } catch (IOException ex) {
             ex.printStackTrace(System.err);

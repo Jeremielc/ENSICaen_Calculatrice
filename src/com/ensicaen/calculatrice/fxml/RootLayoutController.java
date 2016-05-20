@@ -14,8 +14,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  *
@@ -27,6 +29,7 @@ public class RootLayoutController implements Initializable {
     private String op = "";
     private boolean isEquals = false;
     private final Operations operator = new Operations();
+    private Stage owner;
 
     @FXML
     private Button handleA, handleB, handleC, handleD, handleE, handleF;
@@ -129,6 +132,16 @@ public class RootLayoutController implements Initializable {
         textFieldDisplay.setText(String.valueOf(nb1) + " " + op + " " + String.valueOf(nb2) + " = " + String.valueOf(operator.getResult()));
     }
     
+    public void handleAbout() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(owner);
+        alert.setTitle("A propos");
+        alert.setContentText("Auteurs : Pierrick HUE et Jérémie LECLERC.\n" + 
+                "Version : Deux connards dans un abri-bus.");
+        
+        alert.showAndWait();
+    }
+    
     private void moveResultToNumberOne() {
         String temp = textFieldDisplay.getText();
         if (temp.contains("=")) {
@@ -142,6 +155,10 @@ public class RootLayoutController implements Initializable {
         } else {
             nb1 = Double.valueOf(textFieldDisplay.getText());
         }
+    }
+
+    public void setOwner(Stage owner) {
+        this.owner = owner;
     }
 
     class Event implements EventHandler<ActionEvent> {
