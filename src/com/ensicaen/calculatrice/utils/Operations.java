@@ -10,49 +10,38 @@ package com.ensicaen.calculatrice.utils;
  * @author lesurfer
  */
 public class Operations {
-    
-    private double sum;
-    
-    public double getSum(){
-        return sum;
+
+    private double result;
+
+    public void Add(double nb1, double nb2) {
+        result = nb1 + nb2;
+        roundResult();
     }
-    public double Addittion(double... nb){
-        sum = 0;
-        for (Double d : nb) {
-            sum += d;
-        }
-        return sum;
+
+    public void Substract(double nb1, double nb2) {
+        result = nb1 - nb2;
+        roundResult();
     }
-    /*public double Substract(double... nb){
-        sum = 0;
-        for (Double d : nb) {
-            if( d < sum){
-                sum -= d;
-            }else{
-                sum = d - sum;
-            }
-        }
-        return sum;
-    }*/
-    public double Substract(double... nb){
-        sum = 0;
-        for (Double d : nb) {
-                sum -= d;
-        }
-        return sum;
+
+    public void Multiply(double nb1, double nb2) {
+        result = nb1 * nb2;
+        roundResult();
     }
-    public double Multiply(double... nb){
-        sum = 1;
-        for (Double d : nb) {
-            sum *= d;
-        }
-        return sum;
+
+    public void Divide(double nb1, double nb2) {
+        result = nb1 / nb2;
+        roundResult();
     }
-    public double Divide(double... nb){
-        sum = 1;
-        for (Double d : nb) {
-            sum /= d;
-        }
-        return sum;
+
+    private void roundResult() {
+        result = (double) Math.round(result * 100000d) / 100000d;
+    }
+
+    public double getResult() {
+        return result;
+    }
+
+    public void setResult(double result) {
+        this.result = result;
     }
 }

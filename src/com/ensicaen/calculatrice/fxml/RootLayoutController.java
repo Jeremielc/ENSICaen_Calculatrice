@@ -8,6 +8,8 @@ package com.ensicaen.calculatrice.fxml;
 import com.ensicaen.calculatrice.utils.Operations;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -20,6 +22,20 @@ import javafx.scene.control.TextField;
  * @author lesurfer
  */
 public class RootLayoutController implements Initializable {
+
+    private double nb1 = 0, nb2 = 0;
+    private String op = "";
+    private boolean isEquals = false;
+    private final Operations operator = new Operations();
+
+    @FXML
+    private Button handleA, handleB, handleC, handleD, handleE, handleF;
+    @FXML
+    private Button handle0, handle1, handle2, handle3, handle4, handle5, handle6, handle7, handle8, handle9;
+    @FXML
+    private Button handlePoint, handleDiv, handleAdd, handleMul, handleMin, handleSum;
+    @FXML
+    private TextField textFieldDisplay;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -42,50 +58,41 @@ public class RootLayoutController implements Initializable {
         handle9.setOnAction(handleEvent);
     }
 
-    private double nb1 = 0, nb2 = 0;
-    private String op = "";
-
-    @FXML
-    private Button handleA, handleB, handleC, handleD, handleE, handleF;
-    @FXML
-    private Button handle0, handle1, handle2, handle3, handle4, handle5, handle6, handle7, handle8, handle9;
-    @FXML
-    private Button handlePoint, handleDiv, handleAdd, handleMul, handleMin, handleSum;
-
-    @FXML
-    private TextField textFieldDisplay;
-
     @FXML
     public void handleDisplayClear(ActionEvent event) {
         textFieldDisplay.clear();
+        operator.setResult(0);
+        nb1 = 0;
+        nb2 = 0;
+        op = "";
     }
 
     public void handleQuit(ActionEvent event) {
-        System.exit(0);
+        Platform.exit();
     }
 
     public void handleAdd(ActionEvent event) {
         op = "+";
-        nb1 = Double.valueOf(textFieldDisplay.getText());
-        textFieldDisplay.setText("");
+        moveResultToNumberOne();
+        textFieldDisplay.clear();
     }
 
     public void handleMin(ActionEvent event) {
         op = "-";
-        nb1 = Double.valueOf(textFieldDisplay.getText());
-        textFieldDisplay.setText("");
+        moveResultToNumberOne();
+        textFieldDisplay.clear();
     }
 
     public void handleMul(ActionEvent event) {
         op = "*";
-        nb1 = Double.valueOf(textFieldDisplay.getText());
-        textFieldDisplay.setText("");
+        moveResultToNumberOne();
+        textFieldDisplay.clear();
     }
 
     public void handleDiv(ActionEvent event) {
         op = "/";
-        nb1 = Double.valueOf(textFieldDisplay.getText());
-        textFieldDisplay.setText("");
+        moveResultToNumberOne();
+        textFieldDisplay.clear();
     }
 
     public void handlePoint(ActionEvent event) {
@@ -96,14 +103,15 @@ public class RootLayoutController implements Initializable {
         }
     }
 
-    public void handleSum(ActionEvent event) {
-        Operations operator = new Operations();
+    public void handleEquals(ActionEvent event) {
         nb2 = Double.valueOf(textFieldDisplay.getText());
-        textFieldDisplay.setText("");
+        textFieldDisplay.clear();
+        
+        isEquals = true;
 
         switch (op) {
             case "+":
-                operator.Addittion(nb1, nb2);
+                operator.Add(nb1, nb2);
                 break;
             case "-":
                 operator.Substract(nb1, nb2);
@@ -117,16 +125,38 @@ public class RootLayoutController implements Initializable {
             default:
                 break;
         }
-        textFieldDisplay.setText(String.valueOf(nb1) + " " + op + " " + String.valueOf(nb2) + " = " + (String.valueOf(operator.getSum())));
+        
+        textFieldDisplay.setText(String.valueOf(nb1) + " " + op + " " + String.valueOf(nb2) + " = " + String.valueOf(operator.getResult()));
+    }
+    
+    private void moveResultToNumberOne() {
+        String temp = textFieldDisplay.getText();
+        if (temp.contains("=")) {
+            StringTokenizer st = new StringTokenizer(temp, "=");
+            
+            while (st.hasMoreTokens()) {
+                temp = st.nextToken();
+            }
+            
+            nb1 = Double.parseDouble(temp.trim());
+        } else {
+            nb1 = Double.valueOf(textFieldDisplay.getText());
+        }
     }
 
     class Event implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent event) {
+            if (isEquals) {
+                isEquals = false;
+                textFieldDisplay.clear();
+                nb1 = operator.getResult();
+            }
+            
             Button handle = (Button) event.getSource();
             if (textFieldDisplay.getText().equals("0")) {
-                textFieldDisplay.setText("");
+                textFieldDisplay.clear();
             }
             textFieldDisplay.setText(textFieldDisplay.getText() + handle.getText());
         }
