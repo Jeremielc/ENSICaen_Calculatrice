@@ -10,12 +10,16 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -40,6 +44,10 @@ public class RootLayoutController implements Initializable {
     @FXML
     private TextField textFieldDisplay;
 
+    @FXML
+    private ComboBox<String> comboBase;
+    private ObservableList<String> comboBaseData = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Event handleEvent = new Event();
@@ -59,6 +67,16 @@ public class RootLayoutController implements Initializable {
         handle7.setOnAction(handleEvent);
         handle8.setOnAction(handleEvent);
         handle9.setOnAction(handleEvent);
+        handleA.setDisable(true);
+        handleB.setDisable(true);
+        handleC.setDisable(true);
+        handleD.setDisable(true);
+        handleE.setDisable(true);
+        handleF.setDisable(true);
+        comboBaseData.add(new String("Dec"));
+        comboBaseData.add(new String("Hex"));
+        comboBase.setItems(comboBaseData);
+        comboBase.getSelectionModel().selectFirst();
     }
 
     @FXML
@@ -109,7 +127,7 @@ public class RootLayoutController implements Initializable {
     public void handleEquals(ActionEvent event) {
         nb2 = Double.valueOf(textFieldDisplay.getText());
         textFieldDisplay.clear();
-        
+
         isEquals = true;
 
         switch (op) {
@@ -128,29 +146,53 @@ public class RootLayoutController implements Initializable {
             default:
                 break;
         }
-        
+
         textFieldDisplay.setText(String.valueOf(nb1) + " " + op + " " + String.valueOf(nb2) + " = " + String.valueOf(operator.getResult()));
     }
-    
+
     public void handleAbout() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initOwner(owner);
         alert.setTitle("A propos");
-        alert.setContentText("Auteurs : Pierrick HUE et Jérémie LECLERC.\n" + 
-                "Version : Deux connards dans un abri-bus.");
-        
+        alert.setContentText("Auteurs : Pierrick HUE et Jérémie LECLERC.\n"
+                + "Version : Deux connards dans un abri-bus.");
+
         alert.showAndWait();
     }
     
+    @FXML
+    private void handleComboBase() {
+        setDisableHandleHexadecimal();
+    }
+
+    private void setDisableHandleHexadecimal() {
+        String selectedBase = comboBase.getSelectionModel().getSelectedItem();
+        if (selectedBase.equals("Dec")) {
+            handleA.setDisable(true);
+            handleB.setDisable(true);
+            handleC.setDisable(true);
+            handleD.setDisable(true);
+            handleE.setDisable(true);
+            handleF.setDisable(true);
+        } else {
+            handleA.setDisable(false);
+            handleB.setDisable(false);
+            handleC.setDisable(false);
+            handleD.setDisable(false);
+            handleE.setDisable(false);
+            handleF.setDisable(false);
+        }
+    }
+
     private void moveResultToNumberOne() {
         String temp = textFieldDisplay.getText();
         if (temp.contains("=")) {
             StringTokenizer st = new StringTokenizer(temp, "=");
-            
+
             while (st.hasMoreTokens()) {
                 temp = st.nextToken();
             }
-            
+
             nb1 = Double.parseDouble(temp.trim());
         } else {
             nb1 = Double.valueOf(textFieldDisplay.getText());
@@ -170,7 +212,7 @@ public class RootLayoutController implements Initializable {
                 textFieldDisplay.clear();
                 nb1 = operator.getResult();
             }
-            
+
             Button handle = (Button) event.getSource();
             if (textFieldDisplay.getText().equals("0")) {
                 textFieldDisplay.clear();
