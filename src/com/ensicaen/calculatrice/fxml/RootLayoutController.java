@@ -75,6 +75,7 @@ public class RootLayoutController implements Initializable {
         handleF.setDisable(true);
         comboBaseData.add(new String("Dec"));
         comboBaseData.add(new String("Hex"));
+        comboBaseData.add(new String("Bin"));
         comboBase.setItems(comboBaseData);
         comboBase.getSelectionModel().selectFirst();
     }
@@ -159,7 +160,7 @@ public class RootLayoutController implements Initializable {
 
         alert.showAndWait();
     }
-    
+
     @FXML
     private void handleComboBase() {
         setDisableHandleHexadecimal();
@@ -167,20 +168,54 @@ public class RootLayoutController implements Initializable {
 
     private void setDisableHandleHexadecimal() {
         String selectedBase = comboBase.getSelectionModel().getSelectedItem();
-        if (selectedBase.equals("Dec")) {
-            handleA.setDisable(true);
-            handleB.setDisable(true);
-            handleC.setDisable(true);
-            handleD.setDisable(true);
-            handleE.setDisable(true);
-            handleF.setDisable(true);
-        } else {
+        if (selectedBase.equals("Hex")) {
             handleA.setDisable(false);
             handleB.setDisable(false);
             handleC.setDisable(false);
             handleD.setDisable(false);
             handleE.setDisable(false);
             handleF.setDisable(false);
+            handle2.setDisable(false);
+            handle3.setDisable(false);
+            handle4.setDisable(false);
+            handle5.setDisable(false);
+            handle6.setDisable(false);
+            handle7.setDisable(false);
+            handle8.setDisable(false);
+            handle9.setDisable(false);
+            handlePoint.setDisable(true);
+        } else if (selectedBase.equals("Bin")) {
+            handleA.setDisable(true);
+            handleB.setDisable(true);
+            handleC.setDisable(true);
+            handleD.setDisable(true);
+            handleE.setDisable(true);
+            handleF.setDisable(true);
+            handle2.setDisable(true);
+            handle3.setDisable(true);
+            handle4.setDisable(true);
+            handle5.setDisable(true);
+            handle6.setDisable(true);
+            handle7.setDisable(true);
+            handle8.setDisable(true);
+            handle9.setDisable(true);
+            handlePoint.setDisable(true);
+        } else {
+            handleA.setDisable(true);
+            handleB.setDisable(true);
+            handleC.setDisable(true);
+            handleD.setDisable(true);
+            handleE.setDisable(true);
+            handleF.setDisable(true);
+            handle2.setDisable(false);
+            handle3.setDisable(false);
+            handle4.setDisable(false);
+            handle5.setDisable(false);
+            handle6.setDisable(false);
+            handle7.setDisable(false);
+            handle8.setDisable(false);
+            handle9.setDisable(false);
+            handlePoint.setDisable(false);
         }
     }
 
