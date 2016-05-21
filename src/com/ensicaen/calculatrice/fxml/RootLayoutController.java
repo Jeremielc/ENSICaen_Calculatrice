@@ -130,24 +130,51 @@ public class RootLayoutController implements Initializable {
         textFieldDisplay.clear();
 
         isEquals = true;
-
-        switch (op) {
-            case "+":
-                operator.Add(nb1, nb2);
+        switch (comboBase.getSelectionModel().getSelectedItem()) {
+            case "Hex":
+                switch (op) {
+                    case "+":
+                        nb1 = Integer.parseInt(String.valueOf(nb1), 16);
+                        nb2 = Integer.parseInt(String.valueOf(nb2), 16);
+                        operator.Add(nb1, nb2);
+                        break;
+                    case "-":
+                        break;
+                    case "/":
+                        break;
+                    case "*":
+                        break;
+                }
                 break;
-            case "-":
-                operator.Substract(nb1, nb2);
+            case "Bin":
+                switch (op) {
+                    case "+":
+                        break;
+                    case "-":
+                        break;
+                    case "/":
+                        break;
+                    case "*":
+                        break;
+                }
                 break;
-            case "/":
-                operator.Divide(nb1, nb2);
-                break;
-            case "*":
-                operator.Multiply(nb1, nb2);
-                break;
-            default:
+            case "Dec":
+                switch (op) {
+                    case "+":
+                        operator.Add(nb1, nb2);
+                        break;
+                    case "-":
+                        operator.Substract(nb1, nb2);
+                        break;
+                    case "/":
+                        operator.Divide(nb1, nb2);
+                        break;
+                    case "*":
+                        operator.Multiply(nb1, nb2);
+                        break;
+                }
                 break;
         }
-
         textFieldDisplay.setText(String.valueOf(nb1) + " " + op + " " + String.valueOf(nb2) + " = " + String.valueOf(operator.getResult()));
     }
 
