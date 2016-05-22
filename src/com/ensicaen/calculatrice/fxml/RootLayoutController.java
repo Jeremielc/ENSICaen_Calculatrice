@@ -95,64 +95,28 @@ public class RootLayoutController implements Initializable {
     @FXML
     public void handleAdd(ActionEvent event) {
         op = "+";
-        switch (comboBase.getSelectionModel().getSelectedItem()) {
-            case "Dec":
-                moveResultToNumberOne();
-                break;
-            case "Hex":
-                break;
-            case "Bin":
-                break;
-        }
-
+        moveResultToNumberOne();
         textFieldDisplay.clear();
     }
 
     @FXML
     public void handleMin(ActionEvent event) {
         op = "-";
-        switch (comboBase.getSelectionModel().getSelectedItem()) {
-            case "Dec":
-                moveResultToNumberOne();
-                break;
-            case "Hex":
-                break;
-            case "Bin":
-                break;
-        }
-
+        moveResultToNumberOne();
         textFieldDisplay.clear();
     }
 
     @FXML
     public void handleMul(ActionEvent event) {
         op = "*";
-        switch (comboBase.getSelectionModel().getSelectedItem()) {
-            case "Dec":
-                moveResultToNumberOne();
-                break;
-            case "Hex":
-                break;
-            case "Bin":
-                break;
-        }
-
+        moveResultToNumberOne();
         textFieldDisplay.clear();
     }
 
     @FXML
     public void handleDiv(ActionEvent event) {
         op = "/";
-        switch (comboBase.getSelectionModel().getSelectedItem()) {
-            case "Dec":
-                moveResultToNumberOne();
-                break;
-            case "Hex":
-                break;
-            case "Bin":
-                break;
-        }
-
+        moveResultToNumberOne();
         textFieldDisplay.clear();
     }
 
@@ -167,7 +131,16 @@ public class RootLayoutController implements Initializable {
 
     @FXML
     public void handleEquals(ActionEvent event) {
-        nb2 = Double.valueOf(textFieldDisplay.getText());
+        switch (comboBase.getSelectionModel().getSelectedItem()) {
+            case "Dec":
+                nb2 = Double.valueOf(textFieldDisplay.getText());
+                break;
+            case "Hex":
+                break;
+            case "Bin":
+                break;
+        }
+
         textFieldDisplay.clear();
 
         isEquals = true;
@@ -286,7 +259,15 @@ public class RootLayoutController implements Initializable {
 
             nb1 = Double.parseDouble(temp.trim());
         } else {
-            nb1 = Double.valueOf(textFieldDisplay.getText());
+            switch (comboBase.getSelectionModel().getSelectedItem()) {
+                case "Dec":
+                    nb1 = Double.valueOf(textFieldDisplay.getText());
+                    break;
+                case "Hex":
+                    break;
+                case "Bin":
+                    break;
+            }
         }
     }
 
