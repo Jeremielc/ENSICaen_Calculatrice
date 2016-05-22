@@ -10,7 +10,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,11 +35,11 @@ public class RootLayoutController implements Initializable {
     private Stage owner;
 
     @FXML
-    private Button handleA, handleB, handleC, handleD, handleE, handleF;
+    private Button buttonA, buttonB, buttonC, buttonD, buttonE, buttonF;
     @FXML
-    private Button handle0, handle1, handle2, handle3, handle4, handle5, handle6, handle7, handle8, handle9;
+    private Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
     @FXML
-    private Button handlePoint, handleDiv, handleAdd, handleMul, handleMin, handleSum;
+    private Button comaButton;
     @FXML
     private TextField textFieldDisplay;
 
@@ -51,31 +50,34 @@ public class RootLayoutController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Event handleEvent = new Event();
-        handleA.setOnAction(handleEvent);
-        handleB.setOnAction(handleEvent);
-        handleC.setOnAction(handleEvent);
-        handleD.setOnAction(handleEvent);
-        handleE.setOnAction(handleEvent);
-        handleF.setOnAction(handleEvent);
-        handle0.setOnAction(handleEvent);
-        handle1.setOnAction(handleEvent);
-        handle2.setOnAction(handleEvent);
-        handle3.setOnAction(handleEvent);
-        handle4.setOnAction(handleEvent);
-        handle5.setOnAction(handleEvent);
-        handle6.setOnAction(handleEvent);
-        handle7.setOnAction(handleEvent);
-        handle8.setOnAction(handleEvent);
-        handle9.setOnAction(handleEvent);
-        handleA.setDisable(true);
-        handleB.setDisable(true);
-        handleC.setDisable(true);
-        handleD.setDisable(true);
-        handleE.setDisable(true);
-        handleF.setDisable(true);
-        comboBaseData.add(new String("Dec"));
-        comboBaseData.add(new String("Hex"));
-        comboBaseData.add(new String("Bin"));
+        
+        buttonA.setOnAction(handleEvent);
+        buttonB.setOnAction(handleEvent);
+        buttonC.setOnAction(handleEvent);
+        buttonD.setOnAction(handleEvent);
+        buttonE.setOnAction(handleEvent);
+        buttonF.setOnAction(handleEvent);
+        button0.setOnAction(handleEvent);
+        button1.setOnAction(handleEvent);
+        button2.setOnAction(handleEvent);
+        button3.setOnAction(handleEvent);
+        button4.setOnAction(handleEvent);
+        button5.setOnAction(handleEvent);
+        button6.setOnAction(handleEvent);
+        button7.setOnAction(handleEvent);
+        button8.setOnAction(handleEvent);
+        button9.setOnAction(handleEvent);
+        
+        buttonA.setDisable(true);
+        buttonB.setDisable(true);
+        buttonC.setDisable(true);
+        buttonD.setDisable(true);
+        buttonE.setDisable(true);
+        buttonF.setDisable(true);
+        
+        comboBaseData.add("Dec");
+        comboBaseData.add("Hex");
+        comboBaseData.add("Bin");
         comboBase.setItems(comboBaseData);
         comboBase.getSelectionModel().selectFirst();
     }
@@ -118,7 +120,7 @@ public class RootLayoutController implements Initializable {
     }
 
     public void handlePoint(ActionEvent event) {
-        if (handlePoint == event.getSource()) {
+        if (comaButton == event.getSource()) {
             if (!textFieldDisplay.getText().contains(".")) {
                 textFieldDisplay.setText(textFieldDisplay.getText() + ".");
             }
@@ -196,53 +198,53 @@ public class RootLayoutController implements Initializable {
     private void setDisableHandleHexadecimal() {
         String selectedBase = comboBase.getSelectionModel().getSelectedItem();
         if (selectedBase.equals("Hex")) {
-            handleA.setDisable(false);
-            handleB.setDisable(false);
-            handleC.setDisable(false);
-            handleD.setDisable(false);
-            handleE.setDisable(false);
-            handleF.setDisable(false);
-            handle2.setDisable(false);
-            handle3.setDisable(false);
-            handle4.setDisable(false);
-            handle5.setDisable(false);
-            handle6.setDisable(false);
-            handle7.setDisable(false);
-            handle8.setDisable(false);
-            handle9.setDisable(false);
-            handlePoint.setDisable(true);
+            buttonA.setDisable(false);
+            buttonB.setDisable(false);
+            buttonC.setDisable(false);
+            buttonD.setDisable(false);
+            buttonE.setDisable(false);
+            buttonF.setDisable(false);
+            button2.setDisable(false);
+            button3.setDisable(false);
+            button4.setDisable(false);
+            button5.setDisable(false);
+            button6.setDisable(false);
+            button7.setDisable(false);
+            button8.setDisable(false);
+            button9.setDisable(false);
+            comaButton.setDisable(true);
         } else if (selectedBase.equals("Bin")) {
-            handleA.setDisable(true);
-            handleB.setDisable(true);
-            handleC.setDisable(true);
-            handleD.setDisable(true);
-            handleE.setDisable(true);
-            handleF.setDisable(true);
-            handle2.setDisable(true);
-            handle3.setDisable(true);
-            handle4.setDisable(true);
-            handle5.setDisable(true);
-            handle6.setDisable(true);
-            handle7.setDisable(true);
-            handle8.setDisable(true);
-            handle9.setDisable(true);
-            handlePoint.setDisable(true);
+            buttonA.setDisable(true);
+            buttonB.setDisable(true);
+            buttonC.setDisable(true);
+            buttonD.setDisable(true);
+            buttonE.setDisable(true);
+            buttonF.setDisable(true);
+            button2.setDisable(true);
+            button3.setDisable(true);
+            button4.setDisable(true);
+            button5.setDisable(true);
+            button6.setDisable(true);
+            button7.setDisable(true);
+            button8.setDisable(true);
+            button9.setDisable(true);
+            comaButton.setDisable(true);
         } else {
-            handleA.setDisable(true);
-            handleB.setDisable(true);
-            handleC.setDisable(true);
-            handleD.setDisable(true);
-            handleE.setDisable(true);
-            handleF.setDisable(true);
-            handle2.setDisable(false);
-            handle3.setDisable(false);
-            handle4.setDisable(false);
-            handle5.setDisable(false);
-            handle6.setDisable(false);
-            handle7.setDisable(false);
-            handle8.setDisable(false);
-            handle9.setDisable(false);
-            handlePoint.setDisable(false);
+            buttonA.setDisable(true);
+            buttonB.setDisable(true);
+            buttonC.setDisable(true);
+            buttonD.setDisable(true);
+            buttonE.setDisable(true);
+            buttonF.setDisable(true);
+            button2.setDisable(false);
+            button3.setDisable(false);
+            button4.setDisable(false);
+            button5.setDisable(false);
+            button6.setDisable(false);
+            button7.setDisable(false);
+            button8.setDisable(false);
+            button9.setDisable(false);
+            comaButton.setDisable(false);
         }
     }
 
