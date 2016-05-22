@@ -32,18 +32,8 @@ public class Operations {
         result = (double) Math.round(result * 100000d) / 100000d;
     }
 
-    public double getDecimalResult() {
+    public double getResult() {
         return result;
-    }
-    
-    public int getHexResult() {
-        int res = Integer.parseInt(String.valueOf(result), 16);
-        return res;
-    }
-    
-    public int getBinaryResult() {
-        int res = Integer.parseInt(String.valueOf(result), 2);
-        return res;
     }
 
     public void setResult(double result) {

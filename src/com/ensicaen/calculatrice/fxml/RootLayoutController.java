@@ -136,8 +136,10 @@ public class RootLayoutController implements Initializable {
                 nb2 = Double.valueOf(textFieldDisplay.getText());
                 break;
             case "Hex":
+                nb2 = Double.valueOf(Integer.parseInt(textFieldDisplay.getText(), 16));
                 break;
             case "Bin":
+                nb2 = Double.valueOf(Integer.parseInt(textFieldDisplay.getText(), 2));
                 break;
         }
 
@@ -163,13 +165,22 @@ public class RootLayoutController implements Initializable {
 
         switch (comboBase.getSelectionModel().getSelectedItem()) {
             case "Dec":
-                textFieldDisplay.setText(String.valueOf(nb1) + " " + op + " " + String.valueOf(nb2) + " = " + String.valueOf(operator.getDecimalResult()));
+                textFieldDisplay.setText(String.valueOf(nb1) + " " 
+                        + op + " " 
+                        + String.valueOf(nb2) + " = " 
+                        + String.valueOf(operator.getResult()));
                 break;
             case "Hex":
-                textFieldDisplay.setText(String.valueOf(nb1) + " " + op + " " + String.valueOf(nb2) + " = " + String.valueOf(operator.getHexResult()));
+                textFieldDisplay.setText(Integer.toHexString(Integer.parseInt(String.valueOf((int) nb1))).toUpperCase() + " "
+                        + op + " "
+                        + Integer.toHexString(Integer.parseInt(String.valueOf((int) nb2))).toUpperCase() + " = "
+                        + String.valueOf(Integer.toHexString(Integer.parseInt(String.valueOf((int) operator.getResult()))).toUpperCase()));
                 break;
             case "Bin":
-                textFieldDisplay.setText(String.valueOf(nb1) + " " + op + " " + String.valueOf(nb2) + " = " + String.valueOf(operator.getBinaryResult()));
+                textFieldDisplay.setText(Integer.toBinaryString(Integer.parseInt(String.valueOf((int) nb1))).toUpperCase() + " "
+                        + op + " "
+                        + Integer.toBinaryString(Integer.parseInt(String.valueOf((int) nb2))).toUpperCase() + " = "
+                        + String.valueOf(Integer.toBinaryString(Integer.parseInt(String.valueOf((int) operator.getResult()))).toUpperCase()));
                 break;
             default:
                 break;
@@ -264,8 +275,10 @@ public class RootLayoutController implements Initializable {
                     nb1 = Double.valueOf(textFieldDisplay.getText());
                     break;
                 case "Hex":
+                    nb1 = Double.valueOf(Integer.parseInt(textFieldDisplay.getText(), 16));
                     break;
                 case "Bin":
+                    nb1 = Double.valueOf(Integer.parseInt(textFieldDisplay.getText(), 2));
                     break;
             }
         }
@@ -282,7 +295,7 @@ public class RootLayoutController implements Initializable {
             if (isEquals) {
                 isEquals = false;
                 textFieldDisplay.clear();
-                nb1 = operator.getDecimalResult();
+                nb1 = operator.getResult();
             }
 
             Button handle = (Button) event.getSource();
