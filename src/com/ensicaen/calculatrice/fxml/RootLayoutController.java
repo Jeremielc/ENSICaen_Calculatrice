@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ensicaen.calculatrice.fxml;
 
 import com.ensicaen.calculatrice.utils.Operations;
@@ -24,7 +19,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author lesurfer
+ * @author Pierrick Hue & Jérémie Leclerc
  */
 public class RootLayoutController implements Initializable {
 
@@ -40,17 +35,18 @@ public class RootLayoutController implements Initializable {
     private Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
     @FXML
     private Button comaButton;
+
     @FXML
     private TextField textFieldDisplay;
 
     @FXML
     private ComboBox<String> comboBase;
-    private ObservableList<String> comboBaseData = FXCollections.observableArrayList();
+    private final ObservableList<String> comboBaseData = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Event handleEvent = new Event();
-        
+
         buttonA.setOnAction(handleEvent);
         buttonB.setOnAction(handleEvent);
         buttonC.setOnAction(handleEvent);
@@ -67,14 +63,14 @@ public class RootLayoutController implements Initializable {
         button7.setOnAction(handleEvent);
         button8.setOnAction(handleEvent);
         button9.setOnAction(handleEvent);
-        
+
         buttonA.setDisable(true);
         buttonB.setDisable(true);
         buttonC.setDisable(true);
         buttonD.setDisable(true);
         buttonE.setDisable(true);
         buttonF.setDisable(true);
-        
+
         comboBaseData.add("Dec");
         comboBaseData.add("Hex");
         comboBaseData.add("Bin");
@@ -91,34 +87,76 @@ public class RootLayoutController implements Initializable {
         op = "";
     }
 
+    @FXML
     public void handleQuit(ActionEvent event) {
         Platform.exit();
     }
 
+    @FXML
     public void handleAdd(ActionEvent event) {
         op = "+";
-        moveResultToNumberOne();
+        switch (comboBase.getSelectionModel().getSelectedItem()) {
+            case "Dec":
+                moveResultToNumberOne();
+                break;
+            case "Hex":
+                break;
+            case "Bin":
+                break;
+        }
+
         textFieldDisplay.clear();
     }
 
+    @FXML
     public void handleMin(ActionEvent event) {
         op = "-";
-        moveResultToNumberOne();
+        switch (comboBase.getSelectionModel().getSelectedItem()) {
+            case "Dec":
+                moveResultToNumberOne();
+                break;
+            case "Hex":
+                break;
+            case "Bin":
+                break;
+        }
+
         textFieldDisplay.clear();
     }
 
+    @FXML
     public void handleMul(ActionEvent event) {
         op = "*";
-        moveResultToNumberOne();
+        switch (comboBase.getSelectionModel().getSelectedItem()) {
+            case "Dec":
+                moveResultToNumberOne();
+                break;
+            case "Hex":
+                break;
+            case "Bin":
+                break;
+        }
+
         textFieldDisplay.clear();
     }
 
+    @FXML
     public void handleDiv(ActionEvent event) {
         op = "/";
-        moveResultToNumberOne();
+        switch (comboBase.getSelectionModel().getSelectedItem()) {
+            case "Dec":
+                moveResultToNumberOne();
+                break;
+            case "Hex":
+                break;
+            case "Bin":
+                break;
+        }
+
         textFieldDisplay.clear();
     }
 
+    @FXML
     public void handlePoint(ActionEvent event) {
         if (comaButton == event.getSource()) {
             if (!textFieldDisplay.getText().contains(".")) {
@@ -127,59 +165,45 @@ public class RootLayoutController implements Initializable {
         }
     }
 
+    @FXML
     public void handleEquals(ActionEvent event) {
         nb2 = Double.valueOf(textFieldDisplay.getText());
         textFieldDisplay.clear();
 
         isEquals = true;
-        switch (comboBase.getSelectionModel().getSelectedItem()) {
-            case "Hex":
-                switch (op) {
-                    case "+":
-                        nb1 = Integer.parseInt(String.valueOf(nb1), 16);
-                        nb2 = Integer.parseInt(String.valueOf(nb2), 16);
-                        operator.Add(nb1, nb2);
-                        break;
-                    case "-":
-                        break;
-                    case "/":
-                        break;
-                    case "*":
-                        break;
-                }
+        switch (op) {
+            case "+":
+                operator.Add(nb1, nb2);
                 break;
-            case "Bin":
-                switch (op) {
-                    case "+":
-                        break;
-                    case "-":
-                        break;
-                    case "/":
-                        break;
-                    case "*":
-                        break;
-                }
+            case "-":
+                operator.Substract(nb1, nb2);
                 break;
-            case "Dec":
-                switch (op) {
-                    case "+":
-                        operator.Add(nb1, nb2);
-                        break;
-                    case "-":
-                        operator.Substract(nb1, nb2);
-                        break;
-                    case "/":
-                        operator.Divide(nb1, nb2);
-                        break;
-                    case "*":
-                        operator.Multiply(nb1, nb2);
-                        break;
-                }
+            case "/":
+                operator.Divide(nb1, nb2);
+                break;
+            case "*":
+                operator.Multiply(nb1, nb2);
+                break;
+            default:
                 break;
         }
-        textFieldDisplay.setText(String.valueOf(nb1) + " " + op + " " + String.valueOf(nb2) + " = " + String.valueOf(operator.getResult()));
+
+        switch (comboBase.getSelectionModel().getSelectedItem()) {
+            case "Dec":
+                textFieldDisplay.setText(String.valueOf(nb1) + " " + op + " " + String.valueOf(nb2) + " = " + String.valueOf(operator.getDecimalResult()));
+                break;
+            case "Hex":
+                textFieldDisplay.setText(String.valueOf(nb1) + " " + op + " " + String.valueOf(nb2) + " = " + String.valueOf(operator.getHexResult()));
+                break;
+            case "Bin":
+                textFieldDisplay.setText(String.valueOf(nb1) + " " + op + " " + String.valueOf(nb2) + " = " + String.valueOf(operator.getBinaryResult()));
+                break;
+            default:
+                break;
+        }
     }
 
+    @FXML
     public void handleAbout() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initOwner(owner);
@@ -191,60 +215,63 @@ public class RootLayoutController implements Initializable {
     }
 
     @FXML
-    private void handleComboBase() {
-        setDisableHandleHexadecimal();
+    public void handleComboBase() {
+        disableUnecessaryButtons();
     }
 
-    private void setDisableHandleHexadecimal() {
-        String selectedBase = comboBase.getSelectionModel().getSelectedItem();
-        if (selectedBase.equals("Hex")) {
-            buttonA.setDisable(false);
-            buttonB.setDisable(false);
-            buttonC.setDisable(false);
-            buttonD.setDisable(false);
-            buttonE.setDisable(false);
-            buttonF.setDisable(false);
-            button2.setDisable(false);
-            button3.setDisable(false);
-            button4.setDisable(false);
-            button5.setDisable(false);
-            button6.setDisable(false);
-            button7.setDisable(false);
-            button8.setDisable(false);
-            button9.setDisable(false);
-            comaButton.setDisable(true);
-        } else if (selectedBase.equals("Bin")) {
-            buttonA.setDisable(true);
-            buttonB.setDisable(true);
-            buttonC.setDisable(true);
-            buttonD.setDisable(true);
-            buttonE.setDisable(true);
-            buttonF.setDisable(true);
-            button2.setDisable(true);
-            button3.setDisable(true);
-            button4.setDisable(true);
-            button5.setDisable(true);
-            button6.setDisable(true);
-            button7.setDisable(true);
-            button8.setDisable(true);
-            button9.setDisable(true);
-            comaButton.setDisable(true);
-        } else {
-            buttonA.setDisable(true);
-            buttonB.setDisable(true);
-            buttonC.setDisable(true);
-            buttonD.setDisable(true);
-            buttonE.setDisable(true);
-            buttonF.setDisable(true);
-            button2.setDisable(false);
-            button3.setDisable(false);
-            button4.setDisable(false);
-            button5.setDisable(false);
-            button6.setDisable(false);
-            button7.setDisable(false);
-            button8.setDisable(false);
-            button9.setDisable(false);
-            comaButton.setDisable(false);
+    private void disableUnecessaryButtons() {
+        switch (comboBase.getSelectionModel().getSelectedItem()) {
+            case "Hex":
+                buttonA.setDisable(false);
+                buttonB.setDisable(false);
+                buttonC.setDisable(false);
+                buttonD.setDisable(false);
+                buttonE.setDisable(false);
+                buttonF.setDisable(false);
+                button2.setDisable(false);
+                button3.setDisable(false);
+                button4.setDisable(false);
+                button5.setDisable(false);
+                button6.setDisable(false);
+                button7.setDisable(false);
+                button8.setDisable(false);
+                button9.setDisable(false);
+                comaButton.setDisable(true);
+                break;
+            case "Bin":
+                buttonA.setDisable(true);
+                buttonB.setDisable(true);
+                buttonC.setDisable(true);
+                buttonD.setDisable(true);
+                buttonE.setDisable(true);
+                buttonF.setDisable(true);
+                button2.setDisable(true);
+                button3.setDisable(true);
+                button4.setDisable(true);
+                button5.setDisable(true);
+                button6.setDisable(true);
+                button7.setDisable(true);
+                button8.setDisable(true);
+                button9.setDisable(true);
+                comaButton.setDisable(true);
+                break;
+            default:
+                buttonA.setDisable(true);
+                buttonB.setDisable(true);
+                buttonC.setDisable(true);
+                buttonD.setDisable(true);
+                buttonE.setDisable(true);
+                buttonF.setDisable(true);
+                button2.setDisable(false);
+                button3.setDisable(false);
+                button4.setDisable(false);
+                button5.setDisable(false);
+                button6.setDisable(false);
+                button7.setDisable(false);
+                button8.setDisable(false);
+                button9.setDisable(false);
+                comaButton.setDisable(false);
+                break;
         }
     }
 
@@ -274,7 +301,7 @@ public class RootLayoutController implements Initializable {
             if (isEquals) {
                 isEquals = false;
                 textFieldDisplay.clear();
-                nb1 = operator.getResult();
+                nb1 = operator.getDecimalResult();
             }
 
             Button handle = (Button) event.getSource();

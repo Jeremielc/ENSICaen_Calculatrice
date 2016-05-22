@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ensicaen.calculatrice.utils;
 
 /**
  *
- * @author lesurfer
+ * @author Pierrick Hue & Jérémie Leclerc
  */
 public class Operations {
 
@@ -37,8 +32,18 @@ public class Operations {
         result = (double) Math.round(result * 100000d) / 100000d;
     }
 
-    public double getResult() {
+    public double getDecimalResult() {
         return result;
+    }
+    
+    public int getHexResult() {
+        int res = Integer.parseInt(String.valueOf(result), 16);
+        return res;
+    }
+    
+    public int getBinaryResult() {
+        int res = Integer.parseInt(String.valueOf(result), 2);
+        return res;
     }
 
     public void setResult(double result) {
