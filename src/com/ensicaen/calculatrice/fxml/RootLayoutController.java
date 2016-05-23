@@ -76,6 +76,8 @@ public class RootLayoutController implements Initializable {
         comboBaseData.add("Bin");
         comboBase.setItems(comboBaseData);
         comboBase.getSelectionModel().selectFirst();
+        
+        textFieldDisplay.setEditable(false);
     }
 
     @FXML
